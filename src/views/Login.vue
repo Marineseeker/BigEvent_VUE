@@ -127,6 +127,15 @@ const login = async() => {
   ElMessage.success(result.msg ? result.msg : 'log in success')
 }
 
+document.addEventListener('keyup', (event) => {
+  if (event.key === 'Enter') {
+    if (isRegister.value) {
+      register(); // 调用注册函数
+    } else {
+      login(); // 调用登录函数
+    }
+  }
+});
 
 </script>
 
