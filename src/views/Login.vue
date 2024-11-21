@@ -120,11 +120,15 @@ const register = async() => {
     ElMessage.success(result.msg ? result.msg : 'sigh in success')
 }
 
-
+import { useRouter } from 'vue-router'
+const router = useRouter()
 // 登陆函数
 const login = async() => {
-  let result = await userLoginService(registerData.value)
-  ElMessage.success(result.msg ? result.msg : 'log in success')
+    let result = await userLoginService(registerData.value)
+    ElMessage.success(result.msg ? result.msg : 'log in success')
+    // 调用路由跳转
+    router.push('/')
+
 }
 
 document.addEventListener('keyup', (event) => {
