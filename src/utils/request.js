@@ -14,11 +14,11 @@ instance.interceptors.response.use(
             if (result.data.code === 1) {
                 ElMessage.error(result.data.message);
                 return Promise.reject(result.data);
-            }else if (result.data.code === 0) {
+            } else if (result.data.code === 0) {
                 return result.data;
             }
-            return result.data;
         }
+        ElMessage.error(result.data.msg ? result.data.msg : '服务异常');
         return Promise.reject(result.data);
     },
     err => {

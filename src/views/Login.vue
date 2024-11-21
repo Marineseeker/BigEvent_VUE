@@ -127,8 +127,7 @@ const login = async() => {
     let result = await userLoginService(registerData.value)
     ElMessage.success(result.msg ? result.msg : 'log in success')
     // 调用路由跳转
-    router.push('/')
-
+    router.push('/layout')
 }
 
 document.addEventListener('keyup', (event) => {
