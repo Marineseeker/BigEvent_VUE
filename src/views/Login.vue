@@ -46,12 +46,31 @@
                         Communist Party of the United States of America
                     </p>
                 </el-form-item>
+
                 <el-form-item prop="username">
                     <el-input :prefix-icon="User" placeholder="请输入用户名" v-model="registerData.username"></el-input>
                 </el-form-item>
+
                 <el-form-item prop="password">
-                    <el-input name="password" :prefix-icon="Lock" type="password" placeholder="请输入密码" v-model="registerData.password"></el-input>
+                <el-input
+                    name="password"
+                    :type="passwordVisible ? 'text' : 'password'"
+                    placeholder="请输入密码"
+                    v-model="registerData.password"
+                >
+                    <!-- 使用 suffix 插槽在右侧添加按钮 -->
+                    <template #suffix>
+                        <img
+                            :src="eye"
+                            alt="密码可见性切换"
+                            @click="togglePasswordVisibility"
+                            style="cursor: pointer; width: 20px; height: 20px; background-color: #ffffff; border-radius: 50%;"
+                        />
+                    </template>
+                </el-input>
                 </el-form-item>
+
+
                 <el-form-item class="flex">
                     <div class="flex">
                         <el-checkbox>记住我</el-checkbox>
@@ -77,6 +96,12 @@
 import { User, Lock } from '@element-plus/icons-vue'
 import { ref } from 'vue'
 import { ElMessage } from 'element-plus'
+import eye from '@/assets/eye.png';
+const passwordVisible = ref(false);
+
+const togglePasswordVisibility = () => {
+  passwordVisible.value = !passwordVisible.value;
+};
 
 // 控制注册与登录表单的显示，默认显示注册
 const isRegister = ref(false)
