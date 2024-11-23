@@ -2,11 +2,15 @@ import { useTokenStore } from '@/stores/token';
 import request from '@/utils/request';
 
 export const articleCategoryList = () => {
-    const tokenStore = useTokenStore(); // 确保正确调用 store
-    const token = tokenStore.token; // 防止 token 未初始化
+    const tokenStore = useTokenStore();
+    const token = tokenStore.token;  // 获取 token
+
+    // 检查 token 是否为空
     if (!token) {
         console.warn('Token is empty. Please login first.');
         return Promise.reject('Token is missing.');
     }
-    return request.get('/category', { headers: { token } });
+
+    // 使用 Authorization 请求头传递 Token，采用 Bearer <token> 格式
+    return request.get('/category', {headers: {'Authorization': token}});
 };

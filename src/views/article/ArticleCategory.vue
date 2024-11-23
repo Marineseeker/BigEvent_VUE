@@ -12,7 +12,7 @@ const getArticleCategoryList = async () => {
   try {
     const result = await articleCategoryList();
     if (result.code === 0) {
-      categories.value = result.data;
+      categorys.value = result.data;
     } else {
       console.log(result.msg);
     }
