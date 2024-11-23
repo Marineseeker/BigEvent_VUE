@@ -92,12 +92,13 @@
 </template>
 
 <script setup>
-
+import { useTokenStore } from '@/stores/token';
 import { User, Lock } from '@element-plus/icons-vue'
 import { ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import eye from '@/assets/eye.png';
 const passwordVisible = ref(false);
+const tokenStore = useTokenStore();
 
 const togglePasswordVisibility = () => {
   passwordVisible.value = !passwordVisible.value;
@@ -151,6 +152,8 @@ const router = useRouter()
 const login = async() => {
     let result = await userLoginService(registerData.value)
     ElMessage.success(result.msg ? result.msg : 'log in success')
+    tokenStore.setToken(result.data)
+    console.log(tokenStore.token)
     // 调用路由跳转
     router.push('/layout')
 }
