@@ -18,4 +18,6 @@ export const useTokenStore = defineStore('token', () =>{
         setToken,
         removeToken
     }
+},{
+    persist: true
 })
