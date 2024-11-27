@@ -18,3 +18,11 @@ export const articleCategoryList = () => {
 export const articleCategoryAddService = (categoryData)=>{
     return request.post('/category', categoryData)
 }
+
+export const updateCategoryService = (categoryData)=>{
+    return request.put('/category', categoryData)
+}
+
+export const deleteCategoryService = (id)=>{
+    return request.delete(`/category?id=${id}`)
+}

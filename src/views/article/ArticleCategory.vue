@@ -3,12 +3,13 @@ import {
     Edit,
     Delete
 } from '@element-plus/icons-vue'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted} from 'vue'
 const categorys = ref([])
 
-import {articleCategoryList, articleCategoryAddService} from '@/api/article'
+import {articleCategoryList, articleCategoryAddService
+    , updateCategoryService, deleteCategoryService} from '@/api/article'
 
-const getArticleCategoryList = async () => {
+const getArticleCategoryList = async() => {
   try {
     const result = await articleCategoryList();
     if (result.code === 0) {
@@ -20,6 +21,14 @@ const getArticleCategoryList = async () => {
     console.error('Failed to fetch categories:', error);
   }
 };
+
+const updateCategory = async() =>{
+    let result = await updateCategoryService(categoryModel.value);
+    ElMessage.success(result.msg ? result.msg : '修改成功');
+    // 重新获取分类列表
+    getArticleCategoryList();
+    dialogVisible.value = false;
+}
 
 onMounted(() => {
   getArticleCategoryList();
@@ -51,14 +60,78 @@ const addCategory = async() =>{
   dialogVisible.value = false;
 }
 
+const title = ref('')
+
+const showEditDialog = (row)=>{
+    dialogVisible.value = true;
+    title.value = "编辑分类";
+    categoryModel.value.categoryName = row.categoryName;
+    categoryModel.value.categoryAlias = row.categoryAlias;
+    categoryModel.value.id = row.id;
+}
+
+const clearData = ()=>{
+    categoryModel.value.categoryName = '';
+    categoryModel.value.categoryAlias = '';
+    categoryModel.value.id = '';
+}
+
+
+import { ElMessageBox } from 'element-plus';
+const deleteCategory = (row) => {
+  ElMessageBox.confirm(
+    '文章分类被删除后, 该分类下的文章也会被删除, 是否继续?',
+    'Warning',
+    {
+      confirmButtonText: '是',
+      cancelButtonText: '否',
+      type: 'warning',
+    }
+  )
+    .then(async () => {
+        let result = await deleteCategoryService(row.id);
+        ElMessage({
+            type: 'success',
+            message: 'Delete completed',
+        })
+        getArticleCategoryList();
+    })
+    .catch(() => {
+      ElMessage({
+        type: 'info',
+        message: 'Delete canceled',
+      })
+    })
+}
+
+onMounted(() => {
+  document.addEventListener('keydown', handleEnterKey);
+});
+
+onUnmounted(() => {
+  document.removeEventListener('keydown', handleEnterKey);
+});
+
+const handleEnterKey = (event) => {
+  if (event.key === 'Enter' && dialogVisible.value) {
+    // 根据标题判断执行的操作
+    if (title.value === '添加分类') {
+      addCategory();
+    } else if (title.value === '编辑分类') {
+      updateCategory();
+    }
+  }
+};
+
+
 </script>
 <template>
     <el-card class="page-container">
-        <template #header>
+        <template #header>                                                                                               
             <div class="header">
                 <span>文章分类</span>
                 <div class="extra">
-                    <el-button type="primary" @click="dialogVisible=true">添加分类</el-button>
+                    <el-button type="primary" @click="dialogVisible=true, title='添加分类', clearData()">添加分类</el-button>
                 </div>
             </div>
         </template>
@@ -68,9 +141,9 @@ const addCategory = async() =>{
             <el-table-column label="分类别名" prop="categoryAlias"></el-table-column>
             <el-table-column label="操作" width="100">
                 <template #default="{ row }">
-                    <el-button :icon="Edit" circle plain type="primary" ></el-button>
-                    <el-button :icon="Delete" circle plain type="danger"></el-button>
-                </template>
+                    <el-button :icon="Edit" circle plain type="primary" @click="showEditDialog(row)"></el-button>
+                    <el-button :icon="Delete" circle plain type="danger" @click="deleteCategory(row)"></el-button>
+                </template>  
             </el-table-column>
             <template #empty>
                 <el-empty description="没有数据" />
@@ -78,10 +151,10 @@ const addCategory = async() =>{
         </el-table>
 
         <!-- 添加分类弹窗 -->
-        <el-dialog v-model="dialogVisible" title="添加弹层" width="30%">
+        <el-dialog v-model="dialogVisible" :title="title" width="30%">
             <el-form :model="categoryModel" :rules="rules" label-width="100px" style="padding-right: 30px">
                 <el-form-item label="分类名称" prop="categoryName">
-                    <el-input v-model="categoryModel.categoryName" minlength="1" maxlength="10"></el-input>
+                    <el-input v-model="categoryModel.categoryName" minlength="1" m                              axlength="10"></el-input>
                 </el-form-item>
                 <el-form-item label="分类别名" prop="categoryAlias">
                     <el-input v-model="categoryModel.categoryAlias" minlength="1" maxlength="15"></el-input>
@@ -90,12 +163,12 @@ const addCategory = async() =>{
             <template #footer>
                 <span class="dialog-footer">
                     <el-button @click="dialogVisible = false">取消</el-button>
-                    <el-button type="primary" @click="addCategory"> 确认 </el-button>
+                    <el-button type="primary" @click="title=='添加分类' ? addCategory() : updateCategory()"> 确认 </el-button>
                 </span>
             </template>
         </el-dialog>
     </el-card>
-</template>
+</template>            
 
 <style lang="scss" scoped>
 .page-container {

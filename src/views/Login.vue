@@ -147,6 +147,7 @@ const register = async() => {
 }
 
 import { useRouter } from 'vue-router'
+import { ssrImportKey } from 'vite/runtime';
 const router = useRouter()
 // 登陆函数
 const login = async() => {
@@ -158,14 +159,26 @@ const login = async() => {
     router.push('/layout')
 }
 
-document.addEventListener('keyup', (event) => {
+
+import { onMounted, onUnmounted } from 'vue';
+// 绑定键盘事件
+const handleKeyup = (event) => {
   if (event.key === 'Enter') {
     if (isRegister.value) {
-      register(); // 调用注册函数
+      register();
     } else {
-      login(); // 调用登录函数
+      login();
     }
   }
+};
+
+onMounted(() => {
+  document.addEventListener('keyup', handleKeyup);
+});
+
+onUnmounted(() => {
+  // 移除全局监听器
+  document.removeEventListener('keyup', handleKeyup);
 });
 
 </script>
