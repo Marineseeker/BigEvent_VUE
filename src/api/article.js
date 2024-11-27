@@ -26,3 +26,7 @@ export const updateCategoryService = (categoryData)=>{
 export const deleteCategoryService = (id)=>{
     return request.delete(`/category?id=${id}`)
 }
+
+export const articleListService = (params) =>{
+    return request.get('/article', {params:params})
+}
