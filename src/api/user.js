@@ -16,3 +16,7 @@ export const userLoginService = (loginData) =>{
         headers: { 'Content-Type': 'application/json' }
     });
 }
+
+export const userInfoService = () =>{
+    return request.get('/user/userInfo');
+}
