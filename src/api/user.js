@@ -20,3 +20,7 @@ export const userLoginService = (loginData) =>{
 export const userInfoService = () =>{
     return request.get('/user/userInfo');
 }
+
+export const userInfoUpdateService = (userInfoData)=>{
+    return request.put('/user/update', userInfoData)
+}
