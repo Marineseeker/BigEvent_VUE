@@ -30,3 +30,9 @@ export const userAvatarUpdateService = (avatarUrl)=>{
     params.append('avatarUrl', avatarUrl);
     return request.patch('user/updateAvatar', params)
 }
+
+export const userPasswordUpdateService = (passwordData)=>{
+    return request.patch('/user/updatePwd', passwordData, {
+        headers: { 'Content-Type': 'application/json' }
+    })
+}
