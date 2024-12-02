@@ -20,7 +20,6 @@ const getUserInfo = async () => {
     let result = await userInfoService();
     userInfoStore.setInfo(result.data);
 }
-
 getUserInfo();
 
 import { useRouter } from 'vue-router';
@@ -57,8 +56,6 @@ const handleCommand = (command) => {
         router.push('/layout/user/' + command);
     }
 }
-
-
 </script>
 
 

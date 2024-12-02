@@ -28,8 +28,8 @@ const updateUserInfo = async() => {
         return;
     }
 }
-
 </script>
+
 <template>
     <el-card class="page-container">
         <template #header>

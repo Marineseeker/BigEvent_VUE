@@ -1,5 +1,4 @@
 import { defineStore } from "pinia";
-import { info } from "sass";
 import { ref } from "vue";
 
 const userUserInfoStore = defineStore("userInfo", () => {
