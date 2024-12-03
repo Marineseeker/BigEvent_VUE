@@ -2,14 +2,17 @@
 import { ref } from 'vue'
 import { ElMessage } from 'element-plus'
 
+// 密码数据模型
 const PasswordInfo = ref({
     oldPwd: '',
     newPwd: '',
     rePwd: ''
 });
 
+
+// 表单验证规则
 const rules = {
-    oldPassword: [
+    oldPwd: [
         { required: true, message: '请输入密码', trigger: 'blur' },
         { min: 5, max: 16, message: '长度在5到16个字符', trigger: 'blur' }
     ],
@@ -27,7 +30,7 @@ const rules = {
             trigger: 'blur'
         }
     ],
-    rePassword: [
+    rePwd: [
         { required: true, message: '确认密码', trigger: 'blur' },
         { min: 5, max: 16, message: '长度在5到16个字符', trigger: 'blur' },
         {
@@ -43,7 +46,7 @@ const rules = {
     ]
 };
 
-
+// 发送请求
 import { userPasswordUpdateService } from '@/api/user';
 const updateUserPassword = async() => {
     let result = await userPasswordUpdateService(PasswordInfo.value);
@@ -52,8 +55,8 @@ const updateUserPassword = async() => {
         return;
     }
 }
-
 </script>
+
 
 <template>
     <el-card class="page-container">
@@ -65,15 +68,18 @@ const updateUserPassword = async() => {
         <el-row>
             <el-col :span="12">
                 <el-form :model="PasswordInfo" :rules="rules" label-width="100px" size="large">
-                    <el-form-item label="密码" prop="oldPassword">
+                    <el-form-item label="密码" prop="oldPwd">
                         <el-input v-model="PasswordInfo.oldPwd"></el-input>
                     </el-form-item>
-                    <el-form-item label="新密码" prop="newPassword">
+
+                    <el-form-item label="新密码" prop="newPwd">
                         <el-input v-model="PasswordInfo.newPwd"></el-input>
                     </el-form-item>
-                    <el-form-item label="确认密码" prop="rePassword">
+
+                    <el-form-item label="确认密码" prop="rePwd">
                         <el-input v-model="PasswordInfo.rePwd"></el-input>
                     </el-form-item>
+
                     <el-form-item>
                         <el-button type="primary" @click="updateUserPassword">提交修改</el-button>
                     </el-form-item>
