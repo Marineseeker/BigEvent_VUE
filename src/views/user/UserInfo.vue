@@ -38,7 +38,7 @@ const updateUserInfo = async() => {
             </div>
         </template>
         <el-row>
-            <el-col :span="12">
+            <el-col :span="24">
                 <el-form :model="userInfo" :rules="rules" label-width="100px" size="large">
                     <el-form-item label="登录名称">
                         <el-input v-model="userInfo.username" disabled></el-input>
@@ -57,3 +57,34 @@ const updateUserInfo = async() => {
         </el-row>
     </el-card>
 </template>
+
+<style scoped>
+.page-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.header-title {
+    font-size: 24px;
+    color: #333;
+}
+
+.reset-password-form {
+    margin-top: 20px;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 4px;
+}
+</style>

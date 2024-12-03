@@ -56,35 +56,33 @@ const updateAvatar = async () => {
     </el-card>
 </template>
 
-<style lang="scss" scoped>
-.avatar-uploader {
-    :deep() {
-        .avatar {
-            width: 278px;
-            height: 278px;
-            display: block;
-        }
+<style scoped>
+.page-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
 
-        .el-upload {
-            border: 1px dashed var(--el-border-color);
-            border-radius: 6px;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            transition: var(--el-transition-duration-fast);
-        }
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
 
-        .el-upload:hover {
-            border-color: var(--el-color-primary);
-        }
+.header-title {
+    font-size: 24px;
+    color: #333;
+}
 
-        .el-icon.avatar-uploader-icon {
-            font-size: 28px;
-            color: #8c939d;
-            width: 278px;
-            height: 278px;
-            text-align: center;
-        }
-    }
+.reset-password-form {
+    margin-top: 20px;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 4px;
 }
 </style>
