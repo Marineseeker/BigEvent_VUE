@@ -38,6 +38,7 @@
                 </el-form-item>
             </el-form>
 
+            <!--忘记密码表单-->
             <el-form ref="form" size="large" autocomplete="off" v-if="formType === 'isForget'" :model="forgetPwdData"
                 :rules="rules">
                 <el-form-item>
