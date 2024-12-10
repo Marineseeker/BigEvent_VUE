@@ -135,7 +135,7 @@ const handleEnterKey = (event) => {
                 </div>
             </div>
         </template>
-        <el-table :data="categorys" style="width: 100%">
+        <el-table :data="categorys" style="width: 100%;">
             <el-table-column label="序号" width="100" type="index"> </el-table-column>
             <el-table-column label="分类名称" prop="categoryName"></el-table-column>
             <el-table-column label="分类别名" prop="categoryAlias"></el-table-column>
@@ -175,6 +175,7 @@ const handleEnterKey = (event) => {
 .page-container {
     min-height: 100%;
     box-sizing: border-box;
+    background-color: #97191A;
 
     .header {
         display: flex;

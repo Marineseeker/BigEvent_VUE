@@ -61,11 +61,11 @@ const handleCommand = (command) => {
 
 
 <template>
-    <el-container class="layout-container">
+    <el-container class="layout-container" >
         <!-- 左侧菜单 -->
-        <el-aside width="200px">
+        <el-aside width="200px" >
             <div class="el-aside__logo"></div>
-            <el-menu active-text-color="#ffd04b" background-color="#232323" text-color="#fff" router>
+            <el-menu active-text-color="#ffd04b" background-color="#97191A" text-color="#fff" router>
                 <el-menu-item index="/layout/article/category">
                     <el-icon>
                         <Management />
@@ -110,7 +110,7 @@ const handleCommand = (command) => {
         <el-container>
             <!-- 头部区域 -->
             <el-header>
-                <div>黑马程序员：<strong>{{ userInfoStore.info.username }}</strong></div>
+                <div>MarineDreams：<strong>{{ userInfoStore.info.username }}</strong></div>
                 <el-dropdown placement="bottom-end" @command="handleCommand">
                     <span class="el-dropdown__box">
                         <el-avatar :src="userInfoStore.info.userPic ? userInfoStore.info.userPic : avatar" />
@@ -129,9 +129,9 @@ const handleCommand = (command) => {
                 </el-dropdown>
             </el-header>
             <!-- 中间区域 -->
-            <el-main>
+            <el-main >
                 <router-view />
-            </el-main>
+            </el-main >
             <!-- 底部区域 -->
             <el-footer>大事件 ©2023 Created by 黑马程序员</el-footer>
         </el-container>
@@ -141,13 +141,13 @@ const handleCommand = (command) => {
 <style lang="scss" scoped>
 .layout-container {
     height: 100vh;
-
+    background: url('@/assets/communismHand.jpg') no-repeat center / cover;
     .el-aside {
-        background-color: #232323;
+        background-color: #97191A;;
 
         &__logo {
             height: 120px;
-            background: url('@/assets/logo.png') no-repeat center / 120px auto;
+            background: url('@/assets/communism_icon.jpg') no-repeat center / cover;
         }
 
         .el-menu {
@@ -160,6 +160,8 @@ const handleCommand = (command) => {
         display: flex;
         align-items: center;
         justify-content: space-between;
+        background-color: #97191A;
+        color: black;
 
         .el-dropdown__box {
             display: flex;

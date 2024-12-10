@@ -36,3 +36,16 @@ export const userPasswordUpdateService = (passwordData)=>{
         headers: { 'Content-Type': 'application/json' }
     })
 }
+
+export const userSendEmailService = (forgetPwdData)=>{
+    const params = new URLSearchParams();
+    params.append('emailAddr', forgetPwdData.emailAddr);
+    return request.post('/user/sendEmail', params)
+}
+
+export const UserForgetPwdService = (resetPwdData)=>{
+    return request.post('user/verifyCode', resetPwdData,{
+        headers: {'Content-Type': 'application/json' }
+    })
+
+}

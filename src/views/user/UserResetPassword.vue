@@ -96,6 +96,7 @@ const updateUserPassword = async() => {
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+    opacity: 0.8;
 }
 
 .header {
